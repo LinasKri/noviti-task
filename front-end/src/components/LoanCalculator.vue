@@ -19,9 +19,7 @@ export default {
   methods: {
     async fetchMessage() {
       try {
-        const response = await axios.get('/api/noviti', {
-          headers: { Accept: 'application/json' },
-        });
+        const response = await axios.get('/api/noviti');
         this.message = response.data.message;
       } catch (error) {
         console.error(error);
