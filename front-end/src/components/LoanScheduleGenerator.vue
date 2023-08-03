@@ -6,14 +6,30 @@
       <div class="mb-3">
         <label for="amount" class="form-label">Loan Amount (EUR):</label>
         <input
-          type="number"
+          type="range"
           id="amount"
           v-model="amount"
           min="5000"
           max="50000"
+          step="1000"
           required
-          class="form-control"
+          class="form-control-range"
         />
+        <span class="form-text">{{ amount }}</span>
+      </div>
+      <div class="mb-3">
+        <label for="term" class="form-label">Term (month): </label>
+        <input
+          type="range"
+          id="term"
+          v-model="term"
+          min="6"
+          max="24"
+          step="1"
+          required
+          class="form-control-range"
+        />
+        <span class="form-text">{{ term }}</span>
       </div>
 
       <div>
