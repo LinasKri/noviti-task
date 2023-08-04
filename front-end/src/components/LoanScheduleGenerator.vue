@@ -83,10 +83,6 @@ export default {
   },
 
   methods: {
-    calculateTotal(property) {
-      return this.schedule.reduce((acc, payment) => acc + payment[property], 0);
-    },
-
     generateLoanSchedule() {
       const rate = this.interestRate / 100 / 12;
       const payment =
@@ -110,10 +106,15 @@ export default {
         .post('/api/noviti', this.schedule)
         .then((response) => {
           console.log(response.data.message);
+          console.log(response.data.id);
         })
         .catch((error) => {
           console.error(error);
         });
+    },
+
+    calculateTotal(property) {
+      return this.schedule.reduce((acc, payment) => acc + payment[property], 0);
     },
 
     formatCurrency(value) {

@@ -14,6 +14,7 @@ class NovitiController extends AbstractController
     public function index(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+        $data['id'] = uniqid();
 
         $projectDir = $this->getParameter('kernel.project_dir');
         $filePath = $projectDir . '/src/Data/saved-loans.json';
@@ -38,6 +39,7 @@ class NovitiController extends AbstractController
 
         return $this->json([
             'message' => 'Loan saved!',
+            'id' => $data['id'],
         ]);
     }
 }
