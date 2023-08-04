@@ -24,18 +24,18 @@ class NovitiController extends AbstractController
             mkdir($dir, 0777, true);
         }
 
-        $existingLoans = [];
+        $loans = [];
         if (file_exists($filePath)) {
-            $existingLoans = json_decode(file_get_contents($filePath), true);
-            if (!is_array($existingLoans)) {
-                $existingLoans = [];
+            $loans = json_decode(file_get_contents($filePath), true);
+            if (!is_array($loans)) {
+                $loans = [];
             }
         }
 
-        $existingLoans[] = $data;
+        $loans[] = $data;
 
         // Write all loans back to the file
-        file_put_contents($filePath, json_encode($existingLoans));
+        file_put_contents($filePath, json_encode($loans));
 
         return $this->json([
             'message' => 'Loan saved!',
