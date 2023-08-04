@@ -13,13 +13,28 @@ class NovitiController extends AbstractController
     #[Route('/noviti', name: 'app_noviti', methods: ["POST"])]
     public function index(Request $request): JsonResponse
     {
-        $data = $request->getContent();
+        $data = json_decode($request->getContent(), true);
+
         $projectDir = $this->getParameter('kernel.project_dir');
+        $filePath = $projectDir . '/src/Data/saved-loans.json';
+
         $dir = $projectDir . '/src/Data';
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
-        file_put_contents($dir . '/saved-loans.json', $data);
+
+        $existingLoans = [];
+        if (file_exists($filePath)) {
+            $existingLoans = json_decode(file_get_contents($filePath), true);
+            if (!is_array($existingLoans)) {
+                $existingLoans = [];
+            }
+        }
+
+        $existingLoans[] = $data;
+
+        // Write all loans back to the file
+        file_put_contents($filePath, json_encode($existingLoans));
 
         return $this->json([
             'message' => 'Loan saved!',
