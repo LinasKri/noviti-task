@@ -83,9 +83,6 @@ export default {
   },
 
   methods: {
-    calculateTotal(property) {
-      return this.schedule.reduce((acc, payment) => acc + payment[property], 0);
-    },
     generateLoanSchedule() {
       const rate = this.interestRate / 100 / 12;
       const payment =
@@ -105,21 +102,27 @@ export default {
           total: payment,
         };
       });
+
+      axios
+        .post('/api/noviti', this.schedule)
+        .then((response) => {
+          console.log(response.data.message);
+          console.log(response.data.id);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+    calculateTotal(property) {
+      return this.schedule.reduce((acc, payment) => acc + payment[property], 0);
     },
 
     formatCurrency(value) {
       return value.toFixed(2);
     },
-
-    // async fetchMessage() {
-    //   try {
-    //     const response = await axios.get('/api/noviti');
-    //     this.message = response.data.message;
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // },
   },
+
   computed: {
     totalPrincipal() {
       return this.calculateTotal('principal');
@@ -130,9 +133,6 @@ export default {
     totalPayment() {
       return this.calculateTotal('total');
     },
-  },
-  mounted() {
-    // this.fetchMessage();
   },
 };
 </script>
