@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="my-4">Loan Schedule Generation</h1>
+    <h1 class="my-4">Loan Schedule Generator</h1>
 
     <form @submit.prevent="generateLoanSchedule" class="mb-4">
       <div class="mb-3">
@@ -111,14 +111,14 @@ export default {
       return value.toFixed(2);
     },
 
-    async fetchMessage() {
-      try {
-        const response = await axios.get('/api/noviti');
-        this.message = response.data.message;
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    // async fetchMessage() {
+    //   try {
+    //     const response = await axios.get('/api/noviti');
+    //     this.message = response.data.message;
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // },
   },
   computed: {
     totalPrincipal() {
@@ -132,7 +132,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchMessage();
+    // this.fetchMessage();
   },
 };
 </script>
