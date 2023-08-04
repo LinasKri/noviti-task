@@ -102,6 +102,7 @@ export default {
           total: payment,
         };
       });
+
       axios
         .post('/api/noviti', this.schedule)
         .then((response) => {
