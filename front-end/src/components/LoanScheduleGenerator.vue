@@ -21,7 +21,7 @@
           min="5000"
           max="50000"
           required
-          class="form-control"
+          class="form-control w-auto"
         />
       </div>
       <div class="mb-3 d-flex align-items-center">
@@ -42,7 +42,7 @@
           min="6"
           max="24"
           required
-          class="form-control"
+          class="form-control w-auto"
         />
       </div>
 
