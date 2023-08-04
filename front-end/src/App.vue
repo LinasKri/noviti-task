@@ -1,14 +1,17 @@
 <template>
-  <LoanCalculator />
+  <Header />
+  <LoanScheduleGenerator />
 </template>
 
 <script>
-import LoanCalculator from './components/LoanCalculator.vue';
+import LoanScheduleGenerator from './components/LoanScheduleGenerator.vue';
+import Header from './components/layouts/Header.vue';
 
 export default {
   name: 'App',
   components: {
-    LoanCalculator,
+    LoanScheduleGenerator,
+    Header,
   },
 };
 </script>
