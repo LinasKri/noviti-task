@@ -3,7 +3,7 @@
     <h1 class="my-4">Loan Schedule Generator</h1>
 
     <form @submit.prevent="generateLoanSchedule" class="mb-4">
-      <div class="mb-3">
+      <div class="mb-3 d-flex align-items-center">
         <label for="amount" class="form-label">Loan Amount (EUR):</label>
         <input
           type="range"
@@ -13,11 +13,18 @@
           max="50000"
           step="1000"
           required
-          class="form-control-range"
+          class="form-control-range mx-2"
         />
-        <span class="form-text">{{ amount }}</span>
+        <input
+          type="number"
+          v-model="amount"
+          min="6"
+          max="24"
+          required
+          class="form-control"
+        />
       </div>
-      <div class="mb-3">
+      <div class="mb-3 d-flex align-items-center">
         <label for="term" class="form-label">Term (month): </label>
         <input
           type="range"
@@ -27,9 +34,16 @@
           max="24"
           step="1"
           required
-          class="form-control-range"
+          class="form-control-range mx-2"
         />
-        <span class="form-text">{{ term }}</span>
+        <input
+          type="number"
+          v-model="term"
+          min="6"
+          max="24"
+          required
+          class="form-control"
+        />
       </div>
 
       <div>
@@ -38,7 +52,6 @@
         </button>
       </div>
     </form>
-
     <table v-if="schedule.length" class="table table-striped">
       <thead>
         <tr>
