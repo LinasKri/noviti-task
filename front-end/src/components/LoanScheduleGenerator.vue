@@ -18,8 +18,8 @@
         <input
           type="number"
           v-model="amount"
-          min="6"
-          max="24"
+          min="5000"
+          max="50000"
           required
           class="form-control"
         />
