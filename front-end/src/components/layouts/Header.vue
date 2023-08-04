@@ -1,18 +1,13 @@
 <template>
-  <div class="nav-bar"></div>
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container px-5">
+      <router-link to="/" class="navbar-brand border border-1 px-2 ms-0"
+        >LSG</router-link
+      >
+    </div>
+  </nav>
 </template>
 
 <script>
 export default {};
 </script>
-
-<style lang="scss" scoped>
-.nav-bar {
-  background: linear-gradient(-90deg, #84cf6a, #16c0b0);
-  height: 60px;
-  margin-bottom: 25px;
-  -webkit-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
-  -moz-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.57);
-}
-</style>

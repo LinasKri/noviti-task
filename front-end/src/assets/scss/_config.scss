@@ -1,0 +1,5 @@
+$generator-bg-color: #e6ffff;
+$generator-top-gradient-color: linear-gradient(
+  lighten($generator-bg-color, 10%) 0%,
+  rgba(255, 255, 255, 0) 250px
+);
