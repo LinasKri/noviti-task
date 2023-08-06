@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import LoanScheduleGenerator from '../components/LoanScheduleGenerator.vue';
+import LoanScheduleGenerator from '../views/LoanScheduleGenerator.vue';
+import About from '../views/About.vue';
 import Home from '../views/Home.vue';
 
 const router = createRouter({
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/loan-schedule-generator',
       name: 'loan-generator',
       component: LoanScheduleGenerator,
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About,
     },
   ],
 });
