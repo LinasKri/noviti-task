@@ -3,3 +3,6 @@ $generator-top-gradient-color: linear-gradient(
   lighten($generator-bg-color, 10%) 0%,
   rgba(255, 255, 255, 0) 250px
 );
+
+$home-banner-bg-color: linear-gradient(0deg, #0066ff 0%, #ee0979 100%);
+$home-banner-circle-color: linear-gradient(0deg, #ee0979 0%, #0066ff 100%);
