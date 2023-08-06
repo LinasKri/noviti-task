@@ -1,14 +1,19 @@
 <template>
-  <LoanScheduleGenerator />
+  <div>
+    <Navbar />
+    <router-view></router-view>
+    <Footer />
+  </div>
 </template>
 
 <script>
-import LoanScheduleGenerator from './components/LoanScheduleGenerator.vue';
+import Navbar from './components/layouts/Navbar.vue';
+import Footer from './components/layouts/Footer.vue';
 
 export default {
-  name: 'App',
   components: {
-    LoanScheduleGenerator,
+    Navbar,
+    Footer,
   },
 };
 </script>
