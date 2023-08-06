@@ -1,58 +1,66 @@
 <template>
   <div class="generator-bg h-100">
     <div class="container pt-5">
-      <h1 class="my-4">Loan Schedule Generator</h1>
+      <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-lg-6 col-md-12">
+          <h1 class="my-4">Loan Schedule Generator</h1>
+          <form @submit.prevent="generateLoanSchedule" class="mb-4">
+            <div class="mb-3 d-flex align-items-center">
+              <label for="amount" class="form-label">Loan Amount (EUR):</label>
+              <input
+                type="range"
+                id="amount"
+                v-model="amount"
+                min="5000"
+                max="50000"
+                step="1000"
+                required
+                class="form-control-range mx-2"
+              />
+              <input
+                type="number"
+                v-model="amount"
+                min="5000"
+                max="50000"
+                required
+                class="form-control w-auto"
+              />
+            </div>
+            <div class="mb-3 d-flex align-items-center">
+              <label for="term" class="form-label">Term (month): </label>
+              <input
+                type="range"
+                id="term"
+                v-model="term"
+                min="6"
+                max="24"
+                step="1"
+                required
+                class="form-control-range mx-2"
+              />
+              <input
+                type="number"
+                v-model="term"
+                min="6"
+                max="24"
+                required
+                class="form-control w-auto"
+              />
+            </div>
 
-      <form @submit.prevent="generateLoanSchedule" class="mb-4">
-        <div class="mb-3 d-flex align-items-center">
-          <label for="amount" class="form-label">Loan Amount (EUR):</label>
-          <input
-            type="range"
-            id="amount"
-            v-model="amount"
-            min="5000"
-            max="50000"
-            step="1000"
-            required
-            class="form-control-range mx-2"
-          />
-          <input
-            type="number"
-            v-model="amount"
-            min="5000"
-            max="50000"
-            required
-            class="form-control w-auto"
-          />
-        </div>
-        <div class="mb-3 d-flex align-items-center">
-          <label for="term" class="form-label">Term (month): </label>
-          <input
-            type="range"
-            id="term"
-            v-model="term"
-            min="6"
-            max="24"
-            step="1"
-            required
-            class="form-control-range mx-2"
-          />
-          <input
-            type="number"
-            v-model="term"
-            min="6"
-            max="24"
-            required
-            class="form-control w-auto"
-          />
+            <div>
+              <button type="submit" class="btn btn-primary">
+                Generate Loan Schedule
+              </button>
+            </div>
+          </form>
         </div>
 
-        <div>
-          <button type="submit" class="btn btn-primary">
-            Generate Loan Schedule
-          </button>
+        <div class="col-lg-6 col-md-12">
+          <infoText />
         </div>
-      </form>
+      </div>
+
       <transition name="slide" mode="out-in">
         <div v-if="schedule.length" :key="scheduleKey" class="table-responsive">
           <table class="table table-striped">
@@ -91,8 +99,12 @@
 <script>
 import { ref, computed } from 'vue';
 import axios from 'axios';
+import InfoText from '../components/InfoText.vue';
 
 export default {
+  components: {
+    InfoText,
+  },
   setup() {
     const amount = ref(5000);
     const interestRate = ref(12.7);

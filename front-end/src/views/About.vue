@@ -8,7 +8,3 @@
     <div v-for="i in 4" :key="i" :class="['bg-circle-' + i, 'bg-circle']"></div>
   </header>
 </template>
-
-<script setup></script>
-
-<style lang="scss" scoped></style>
