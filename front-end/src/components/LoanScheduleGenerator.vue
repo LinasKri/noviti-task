@@ -89,28 +89,25 @@
 </template>
 
 <script>
+import { ref, computed } from 'vue';
 import axios from 'axios';
 
 export default {
-  data() {
-    return {
-      amount: 5000,
-      interestRate: 12.7,
-      term: 6,
-      schedule: [],
-      scheduleKey: 0,
-    };
-  },
+  setup() {
+    const amount = ref(5000);
+    const interestRate = ref(12.7);
+    const term = ref(6);
+    const schedule = ref([]);
+    const scheduleKey = ref(0);
 
-  methods: {
-    generateLoanSchedule() {
-      const rate = this.interestRate / 100 / 12;
+    const generateLoanSchedule = () => {
+      const rate = interestRate.value / 100 / 12;
       const payment =
-        (this.amount * rate * Math.pow(1 + rate, this.term)) /
-        (Math.pow(1 + rate, this.term) - 1);
-      let remainingAmount = this.amount;
+        (amount.value * rate * Math.pow(1 + rate, term.value)) /
+        (Math.pow(1 + rate, term.value) - 1);
+      let remainingAmount = amount.value;
 
-      this.schedule = Array.from({ length: this.term }, (_, i) => {
+      schedule.value = Array.from({ length: term.value }, (_, i) => {
         const interest = remainingAmount * rate;
         const principal = payment - interest;
         remainingAmount -= principal;
@@ -124,7 +121,7 @@ export default {
       });
 
       axios
-        .post('/api/noviti', this.schedule)
+        .post('/api/noviti', schedule.value)
         .then((response) => {
           console.log(response.data.message);
           console.log(response.data.id);
@@ -133,28 +130,35 @@ export default {
           console.error(error);
         });
 
-      this.scheduleKey++;
-    },
+      scheduleKey.value++;
+    };
 
-    calculateTotal(property) {
-      return this.schedule.reduce((acc, payment) => acc + payment[property], 0);
-    },
+    const calculateTotal = (property) => {
+      return schedule.value.reduce(
+        (acc, payment) => acc + payment[property],
+        0
+      );
+    };
 
-    formatCurrency(value) {
+    const formatCurrency = (value) => {
       return value.toFixed(2);
-    },
-  },
+    };
 
-  computed: {
-    totalPrincipal() {
-      return this.calculateTotal('principal');
-    },
-    totalInterest() {
-      return this.calculateTotal('interest');
-    },
-    totalPayment() {
-      return this.calculateTotal('total');
-    },
+    const totalPrincipal = computed(() => calculateTotal('principal'));
+    const totalInterest = computed(() => calculateTotal('interest'));
+    const totalPayment = computed(() => calculateTotal('total'));
+
+    return {
+      amount,
+      term,
+      schedule,
+      scheduleKey,
+      generateLoanSchedule,
+      totalPrincipal,
+      totalInterest,
+      totalPayment,
+      formatCurrency,
+    };
   },
 };
 </script>
