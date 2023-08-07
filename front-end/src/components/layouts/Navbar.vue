@@ -4,7 +4,7 @@
       <router-link
         to="/"
         class="navbar-brand border border-2 rounded-circle p-2 ms-0"
-        >LSG</router-link
+        >LOGO</router-link
       >
       <div class="">
         <router-link
