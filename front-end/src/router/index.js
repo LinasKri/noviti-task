@@ -22,6 +22,7 @@ const router = createRouter({
       component: About,
     },
   ],
+  linkActiveClass: 'active',
 });
 
 export default router;

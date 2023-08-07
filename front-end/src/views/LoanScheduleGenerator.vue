@@ -62,8 +62,12 @@
       </div>
 
       <transition name="slide" mode="out-in">
-        <div v-if="schedule.length" :key="scheduleKey" class="table-responsive">
-          <table class="table table-striped">
+        <div
+          v-if="schedule.length"
+          :key="scheduleKey"
+          class="table-responsive rounded"
+        >
+          <table class="table table-striped table-borderless mb-0">
             <thead>
               <tr>
                 <th>No.</th>
@@ -81,7 +85,7 @@
                 <td>{{ formatCurrency(payment.interest) }}</td>
                 <td>{{ formatCurrency(payment.total) }}</td>
               </tr>
-              <tr class="table-info">
+              <tr class="table-primary">
                 <td>Total</td>
                 <td></td>
                 <td>{{ formatCurrency(totalPrincipal) }} EUR</td>
