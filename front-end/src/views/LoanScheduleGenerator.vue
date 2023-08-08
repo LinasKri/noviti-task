@@ -1,6 +1,6 @@
 <template>
   <div class="generator-bg h-100">
-    <div class="container pt-5">
+    <div class="container py-5">
       <div class="row d-flex justify-content-between align-items-center">
         <div class="col-lg-6 col-md-12">
           <h1 class="my-4">Loan Schedule Generator</h1>
@@ -116,7 +116,7 @@ export default {
     const schedule = ref([]);
     const scheduleKey = ref(0);
 
-    const generateLoanSchedule = () => {
+    const generateLoanSchedule = async () => {
       const rate = interestRate.value / 100 / 12;
       const payment =
         (amount.value * rate * Math.pow(1 + rate, term.value)) /
@@ -136,15 +136,21 @@ export default {
         };
       });
 
-      axios
-        .post('/api/noviti', schedule.value)
-        .then((response) => {
-          console.log(response.data.message);
-          console.log(response.data.id);
-        })
-        .catch((error) => {
+      for (let payment of schedule.value) {
+        try {
+          const response = await axios.post('/api/noviti', {
+            loan_amount: amount.value,
+            term_in_months: term.value,
+            remaining_amount: payment.remainingAmount,
+            principal: payment.principal,
+            interest: payment.interest,
+            total: payment.total,
+          });
+          console.log('Successfully created a new payment');
+        } catch (error) {
           console.error(error);
-        });
+        }
+      }
 
       scheduleKey.value++;
     };

@@ -4,17 +4,18 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Payment;
 
 #[Route('/api', name: 'api_')]
 class NovitiController extends AbstractController
 {
     #[Route('/noviti', name: 'app_noviti', methods: ["POST"])]
-    public function index(Request $request): JsonResponse
+    public function index(ManagerRegistry $doctrine, Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        $data['id'] = uniqid();
 
         $projectDir = $this->getParameter('kernel.project_dir');
         $filePath = $projectDir . '/src/Data/saved-loans.json';
@@ -26,18 +27,37 @@ class NovitiController extends AbstractController
 
         $loans = [];
         if (file_exists($filePath)) {
-            $loans = json_decode(file_get_contents($filePath), true);
-            if (!is_array($loans)) {
-                $loans = [];
+            $decodedLoans = json_decode(file_get_contents($filePath), true);
+            if (is_array($decodedLoans)) {
+                $loans = $decodedLoans;
             }
         }
 
         $loans[] = $data;
         file_put_contents($filePath, json_encode($loans));
 
-        return $this->json([
-            'message' => 'Loan saved!',
-            'id' => $data['id'],
-        ]);
+        try {
+            $entityManager = $doctrine->getManager();
+
+            $payment = new Payment();
+
+            $payment = new Payment();
+            $payment->setLoanAmount($data['loan_amount']);
+            $payment->setTermInMonths($data['term_in_months']);
+            $payment->setRemainingAmount($data['remaining_amount']);
+            $payment->setPrincipal($data['principal']);
+            $payment->setInterest($data['interest']);
+            $payment->setTotal($data['total']);
+
+            $entityManager->persist($payment);
+            $entityManager->flush();
+
+            $data['id'] = $payment->getId();
+        } catch (\Exception $e) {
+            // Log the exception message and stack trace to debug
+            error_log($e->getMessage());
+            error_log($e->getTraceAsString());
+            return $this->json(['error' => 'An error occurred while saving to the database.'], 500);
+        }
     }
 }
