@@ -3,8 +3,8 @@
 ## Tasks completed:
 
 - Created a web application for a loan schedule generation (gather input and display results).
-- Created and use the backend REST API.
-- Save result to file (REST API).
+- Created and used the backend REST API.
+- Results are saved to file (rest-api/scr/Data/saved-loans.json) .
 - Use different branches (at least 2) for different functionality and merge to main at the end of development.
 
 ## Repository
@@ -35,7 +35,7 @@ npm run dev
 ```sh
 npm run build
 ```
-
+#### Then forntend will we displayed in url shown in the terminal (http://127.0.0.1:5173/)
 ## Project Structure
 
 - Front-end directory: The front-end application is located in the `front-end` directory.
