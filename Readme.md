@@ -34,13 +34,13 @@ To start the project, follow these steps:
 1. From root folder run command: `cd front-end`,
 2. Once in `front-end` folder run `npm install`,
 
-### Compile and Hot-Reload for Development
+# Compile and Hot-Reload for Development
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+# Compile and Minify for Production
 
 ```sh
 npm run build
