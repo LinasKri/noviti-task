@@ -54,9 +54,7 @@ class NovitiController extends AbstractController
 
             $data['id'] = $payment->getId();
         } catch (\Exception $e) {
-            // Log the exception message and stack trace to debug
             error_log($e->getMessage());
-            error_log($e->getTraceAsString());
             return $this->json(['error' => 'An error occurred while saving to the database.'], 500);
         }
     }

@@ -1,29 +1,39 @@
 version: '3'
 
 services:
-    noviti-app:
-        container_name: noviti-app
-        volumes:
-            - ./rest-api:/var/www/symfony
-        ports:
-            - "8080:80"
-        build:
-            dockerfile: docker/app/Dockerfile
+  noviti-app:
+    container_name: noviti-app
+    volumes:
+      - ./rest-api:/var/www/symfony
+    ports:
+      - '8080:80'
+    build:
+      dockerfile: docker/app/Dockerfile
 
-    noviti-front:
-        image: nginx
-        ports:
-            - 8000:80
-        volumes:
-            - ./front-end:/usr/share/nginx/html
+  noviti-front:
+    image: nginx
+    ports:
+      - 8000:80
+    volumes:
+      - ./front-end:/usr/share/nginx/html
 
+  noviti-db:
+  image: mysql:5.7
+  environment:
+    MYSQL_ROOT_PASSWORD: 123123123
+    MYSQL_DATABASE: payments
+  volumes:
+    - db_data:/var/lib/mysql
+  restart: always
 
+volumes:
+  db_data: {}
 
 networks:
-    default:
-        name: noviti-task
-        driver: bridge
-        ipam:
-            driver: default
-            config:
-                - subnet: 172.33.88.0/24
+  default:
+    name: noviti-task
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.33.88.0/24
