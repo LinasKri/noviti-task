@@ -18,16 +18,16 @@ services:
       - ./front-end:/usr/share/nginx/html
 
   noviti-db:
-  image: mysql:5.7
-  environment:
-    MYSQL_ROOT_PASSWORD: 123123123
-    MYSQL_DATABASE: payments
-  volumes:
-    - db_data:/var/lib/mysql
-  restart: always
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 123123123
+      MYSQL_DATABASE: payments
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
 
 volumes:
-  db_data: {}
+  db_data:
 
 networks:
   default:
