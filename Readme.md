@@ -1,11 +1,4 @@
-# Noviti task
-
-## Tasks completed:
-
-- Created a web application for a loan schedule generation (gather input and display results).
-- Created and used the backend REST API.
-- Results are saved to file (rest-api/scr/Data/saved-loans.json) .
-- Use different branches (at least 2) for different functionality and merge to main at the end of development.
+# Vue & REST API
 
 ## Repository
 
